@@ -27,7 +27,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public UserDomain save(UserEntity userEntity) {
         UserEntity savedUserEntity = userRepositoryJpa.save(userEntity);
-        log.info("Saved user: {}, {}", savedUserEntity, savedUserEntity.getWalletEntity());
+        log.info("Saved user: {}", savedUserEntity);
         return userMapper.toDomain(savedUserEntity);
     }
 

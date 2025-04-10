@@ -12,3 +12,8 @@ spring:
       enabled: true
 server:
   port: 8080
+
+coincap:
+  api:
+    base: https://rest.coincap.io/v3/assets
+    key: e3a2bdef59a3ecbc90ff51bee7023bca588e9ed8ad0ee2e2be46e2e0892714d9
