@@ -4,11 +4,13 @@ import com.example.walletsystem.user.domain.UserDomain;
 import com.example.walletsystem.user.infrastructure.entity.UserEntity;
 import com.example.walletsystem.user.infrastructure.exception.UserNotFoundException;
 import com.example.walletsystem.user.infrastructure.mapper.UserMapper;
+import com.example.walletsystem.wallet.infrastructure.mapper.WalletMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
@@ -25,6 +27,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public UserDomain save(UserEntity userEntity) {
         UserEntity savedUserEntity = userRepositoryJpa.save(userEntity);
+        log.info("Saved user: {}, {}", savedUserEntity, savedUserEntity.getWalletEntity());
         return userMapper.toDomain(savedUserEntity);
     }
+
 }

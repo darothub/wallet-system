@@ -1,4 +1,4 @@
-package com.example.walletsystem.user.presentation.response;
+package com.example.walletsystem.shared.response;
 
 public record ApiResponse<T>(T data) {
     public static <T> ApiResponse<T> of(T data) {

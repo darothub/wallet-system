@@ -1,8 +1,9 @@
-package com.example.walletsystem.user.presentation.exceptionhandler;
+package com.example.walletsystem.shared.exceptionhandler;
 
 import com.example.walletsystem.user.application.exception.UserAlreadyExistException;
 import com.example.walletsystem.user.infrastructure.exception.UserNotFoundException;
-import com.example.walletsystem.user.presentation.response.ApiError;
+import com.example.walletsystem.shared.response.ApiError;
+import com.example.walletsystem.wallet.application.exception.WalletNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,13 @@ public class GlobalExceptionHandler {
         log.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ApiError.of(409, ex.getMessage()));
+    }
+
+    @ExceptionHandler(WalletNotFoundException.class)
+    public ResponseEntity<ApiError> handleWalletNotFound(WalletNotFoundException ex) {
+        log.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiError.of(404, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

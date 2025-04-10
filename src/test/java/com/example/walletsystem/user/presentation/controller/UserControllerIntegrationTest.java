@@ -4,6 +4,7 @@ import com.example.walletsystem.user.application.dto.CreateUserDTO;
 import com.example.walletsystem.user.application.dto.UserResponseDTO;
 import com.example.walletsystem.user.application.exception.UserAlreadyExistException;
 import com.example.walletsystem.user.application.service.UserService;
+import com.example.walletsystem.wallet.application.dto.WalletResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -33,7 +36,7 @@ class UserControllerIntegrationTest {
         // Arrange
         String email = "test@example.com";
         Long id = 1L;
-        UserResponseDTO responseDTO = new UserResponseDTO(id);
+        UserResponseDTO responseDTO = new UserResponseDTO(id, UUID.randomUUID());
         Mockito.when(userService.createUser(email)).thenReturn(responseDTO);
 
         CreateUserDTO request = new CreateUserDTO(email);
@@ -51,7 +54,7 @@ class UserControllerIntegrationTest {
         // Arrange
         String email = "exists@example.com";
         Mockito.when(userService.createUser(email))
-                .thenThrow(new UserAlreadyExistException("User with email " + email + " already exists"));
+                .thenThrow(new UserAlreadyExistException(email));
 
         CreateUserDTO request = new CreateUserDTO(email);
 
