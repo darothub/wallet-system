@@ -1,5 +1,5 @@
 
-package com.example.walletsystem.user.presentation.response;
+package com.example.walletsystem.shared.response;
 
 import java.time.Instant;
 
