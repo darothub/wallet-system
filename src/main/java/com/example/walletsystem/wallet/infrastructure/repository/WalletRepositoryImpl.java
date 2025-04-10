@@ -21,15 +21,14 @@ public class WalletRepositoryImpl implements WalletRepository {
     }
 
     @Override
-    public WalletDomain findById(UUID walletId) {
+    public WalletEntity findById(UUID walletId) {
         return walletRepositoryJpa.findById(walletId)
-                .map(walletMapper::toDomain)
                 .orElseThrow(() -> new WalletNotFoundException(walletId));
     }
 
     @Override
-    public WalletDomain save(WalletEntity walletEntity) {
-        return walletMapper.toDomain(walletRepositoryJpa.save(walletEntity));
+    public WalletEntity save(WalletEntity walletEntity) {
+        return walletRepositoryJpa.save(walletEntity);
     }
 
 }

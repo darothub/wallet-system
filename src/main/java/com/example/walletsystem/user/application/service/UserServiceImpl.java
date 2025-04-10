@@ -4,6 +4,7 @@ import com.example.walletsystem.user.application.dto.UserResponseDTO;
 import com.example.walletsystem.user.application.exception.UserAlreadyExistException;
 import com.example.walletsystem.user.domain.UserDomain;
 import com.example.walletsystem.user.infrastructure.entity.UserEntity;
+import com.example.walletsystem.user.infrastructure.exception.UserNotFoundException;
 import com.example.walletsystem.user.infrastructure.mapper.UserMapper;
 import com.example.walletsystem.user.infrastructure.repository.UserRepository;
 import com.example.walletsystem.wallet.infrastructure.entity.WalletEntity;
@@ -33,5 +34,14 @@ public class UserServiceImpl implements UserService {
         UserDomain userDomain = userRepository.save(userEntity);
         log.info("Created user with email {}, {}", walletEntity, userDomain);
         return userMapper.toResponseDTO(userDomain);
+    }
+
+    @Override
+    public UserEntity getUserById(Long id) {
+        UserEntity userEntity = userRepository.getById(id);
+        if (userEntity == null) {
+            throw new UserNotFoundException();
+        }
+        return userEntity;
     }
 }

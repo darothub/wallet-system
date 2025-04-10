@@ -10,6 +10,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,8 +42,8 @@ public class CoinCapApiClient {
             CoinCapApiResponse response = restTemplate.getForObject(uri, CoinCapApiResponse.class);
             if (response != null && response.data() != null) {
                 for (CoinCapApiAssetDTO asset : response.data()) {
-                    priceMap.putIfAbsent(asset.symbol(), asset.priceUsd());
-                    System.out.println(asset.symbol() + " - $" + asset.priceUsd());
+                    priceMap.putIfAbsent(asset.symbol(), asset.priceUsd().setScale(2, RoundingMode.HALF_UP));
+                    log.info(asset.symbol() + " - $" + asset.priceUsd().setScale(2, RoundingMode.HALF_UP));
                 }
             } else {
                 log.error("No data found.");

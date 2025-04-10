@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface WalletRepository {
     WalletDomain findByUserId(Long id);
-    WalletDomain findById(UUID walletId);
-    WalletDomain save(WalletEntity walletEntity);
+    WalletEntity findById(UUID walletId);
+    WalletEntity save(WalletEntity walletEntity);
 }

@@ -8,5 +8,4 @@ import java.util.UUID;
 
 public interface WalletService {
     WalletResponseDTO getWalletByUserId(Long userId);
-    void addAssetToWallet(UUID walletId, String symbol, BigDecimal quantity, BigDecimal price);
 }

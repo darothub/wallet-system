@@ -9,9 +9,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class AssetDomain {
-    private UUID id;
     private String symbol;
     private BigDecimal quantity;
     private BigDecimal price;
-    private UUID walletId;
 }

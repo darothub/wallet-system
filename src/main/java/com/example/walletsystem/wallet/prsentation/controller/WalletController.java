@@ -1,6 +1,7 @@
 package com.example.walletsystem.wallet.prsentation.controller;
 
 import com.example.walletsystem.asset.application.dto.AddAssetRequestDTO;
+import com.example.walletsystem.asset.application.service.AssetService;
 import com.example.walletsystem.shared.response.ApiResponse;
 import com.example.walletsystem.wallet.application.dto.WalletResponseDTO;
 import com.example.walletsystem.wallet.application.service.WalletService;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/wallets")
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class WalletController {
 
     private final WalletService walletService;
+    private final AssetService assetService;
 
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
@@ -28,8 +32,9 @@ public class WalletController {
     @PostMapping("/{walletId}/assets")
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<?> addAssetToWallet(
-            @PathVariable Long walletId,
+            @PathVariable UUID walletId,
             @Valid @RequestBody AddAssetRequestDTO addAssetRequest) {
-        return ApiResponse.of("");
+        WalletResponseDTO walletResponseDTO = assetService.addAssetToWallet(walletId, addAssetRequest);
+        return ApiResponse.of(walletResponseDTO);
     }
 }

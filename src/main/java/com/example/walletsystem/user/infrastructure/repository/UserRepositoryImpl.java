@@ -31,4 +31,9 @@ public class UserRepositoryImpl implements UserRepository {
         return userMapper.toDomain(savedUserEntity);
     }
 
+    @Override
+    public UserEntity getById(Long id) {
+        return userRepositoryJpa.findById(id).orElse(null);
+    }
+
 }

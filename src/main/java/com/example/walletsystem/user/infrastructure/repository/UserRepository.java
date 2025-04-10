@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface UserRepository {
     UserDomain findByEmail(String email);
     UserDomain save(UserEntity userEntity);
-
+    UserEntity getById(Long id);
 }

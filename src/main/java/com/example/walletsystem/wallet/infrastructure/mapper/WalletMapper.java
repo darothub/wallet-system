@@ -11,10 +11,6 @@ import org.mapstruct.Mapping;
 public interface WalletMapper {
     @Mapping(source = "user.id", target = "userId")
     WalletDomain toDomain(WalletEntity walletEntity);
-    @InheritInverseConfiguration
-    @Mapping(target = "user", ignore = true)
-    @Mapping(target = "assetEntities", ignore = true)
-    WalletEntity toEntity(WalletDomain walletDomain);
+    @Mapping(target = "total", ignore = true)
     WalletResponseDTO toResponseDTO(WalletDomain walletDomain);
-
 }

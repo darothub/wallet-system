@@ -1,8 +1,12 @@
 package com.example.walletsystem.asset.infrastructure.repository;
 
 import com.example.walletsystem.asset.infrastructure.entity.AssetEntity;
-import com.example.walletsystem.asset.domain.AssetDomain;
+
+import java.util.List;
+import java.util.UUID;
 
 public interface AssetRepository {
-    AssetDomain addAssetToWallet(AssetEntity assetEntity);
+    AssetEntity save(AssetEntity assetEntity);
+    List<AssetEntity> findByWalletId(UUID walletId);
+
 }

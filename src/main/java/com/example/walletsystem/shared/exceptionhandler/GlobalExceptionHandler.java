@@ -1,5 +1,6 @@
 package com.example.walletsystem.shared.exceptionhandler;
 
+import com.example.walletsystem.asset.application.exception.InvalidAssetPriceException;
 import com.example.walletsystem.user.application.exception.UserAlreadyExistException;
 import com.example.walletsystem.user.infrastructure.exception.UserNotFoundException;
 import com.example.walletsystem.shared.response.ApiError;
@@ -28,6 +29,13 @@ public class GlobalExceptionHandler {
         log.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ApiError.of(409, ex.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidAssetPriceException.class)
+    public ResponseEntity<ApiError> handleInvalidAssetPrice(InvalidAssetPriceException ex) {
+        log.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiError.of(400, ex.getMessage()));
     }
 
     @ExceptionHandler(WalletNotFoundException.class)
